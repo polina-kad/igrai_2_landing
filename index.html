@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IGRAI® — Игровые ноутбуки и ПК в Санкт-Петербурге</title>
+<meta name="description" content="Продажа б/у и новых ПК и ноутбуков, индивидуальные сборки в Санкт-Петербурге. Диагностика перед покупкой, гарантия, сотрудничество с компьютерными клубами.">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/style.css">
+<script type="importmap">
+{"imports":{"three":"./assets/vendor/three/three.module.min.js","three/addons/":"./assets/vendor/three/examples/jsm/"}}
+</script>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="hdr" id="hdr">
+  <a class="hdr__logo" href="#top">
+    <span class="mark">N</span>
+    <span class="wordmark">IGRAI<sup>®</sup></span>
+  </a>
+  <nav class="hdr__nav">
+    <a href="#catalog">Каталог</a>
+    <a href="#about">О нас</a>
+    <a href="#why">Почему мы</a>
+    <a href="#b2b">B2B</a>
+    <a href="#map">Контакты</a>
+  </nav>
+  <div class="hdr__meta">
+    <span class="micro">СПб · ул. Швецова, 41</span>
+    <a class="hdr__phone" href="tel:+79000000000">+7 900 000-00-00</a>
+    <a class="btn btn--sm" href="#lead">Оставить заявку</a>
+  </div>
+  <button class="hdr__burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+</header>
+
+<!-- ═══════════ HERO + 3D STAGE ═══════════ -->
+<section class="stage" id="top">
+  <div class="stage__sticky">
+
+    <div class="stage__bg" aria-hidden="true">
+      <div class="stage__bg-img"></div>
+      <div class="stage__bg-fade"></div>
+    </div>
+
+    <canvas id="gl" class="stage__canvas"></canvas>
+
+    <!-- hero typography -->
+    <div class="hero" id="hero">
+      <div class="hero__top">
+        <span class="micro micro--l">01 / Санкт-Петербург</span>
+        <span class="micro micro--r">с 2019 года</span>
+      </div>
+      <h1 class="hero__title">ИГРОВЫЕ<br>НОУТБУКИ И ПК<sup>®</sup></h1>
+      <p class="hero__sub">Подберём мощный компьютер или ноутбук под ваш бюджет — с гарантией.
+        Проверенная б/у техника и индивидуальные сборки с полной диагностикой перед покупкой.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#lead">Подобрать технику</a>
+        <a class="btn btn--ghost" href="#catalog">Смотреть каталог</a>
+      </div>
+    </div>
+
+    <!-- scroll hint -->
+    <div class="scrollhint" id="scrollhint">
+      <span class="dots"><i></i><i></i></span>
+      <span class="micro">Листайте — ноутбук откроется</span>
+    </div>
+
+    <!-- catalog heading that fades in at the end of the animation -->
+    <div class="cat-head" id="catHead" >
+      <span class="dots"><i></i><i></i></span>
+      <h2 class="sect__title">КАТАЛОГ ТЕХНИКИ</h2>
+      <p class="sect__sub">Четыре направления — от бюджетной офисной машины до сборки под конкретную игру</p>
+    </div>
+
+    <!-- the 4 cards: live on the laptop screen, then become the catalog grid -->
+    <div class="screenlayer" id="screenLayer" aria-hidden="false">
+      <div class="screenbox" id="screenBox">
+        <div class="scr-ui" id="scrUi">
+          <div class="scr-ui__bar"><span></span><span></span><span></span><em>igrai.ru / каталог</em></div>
+          <div class="cards" id="cards">
+
+            <article class="card" style="--c1:#6d5cff;--c2:#b14bff">
+              <div class="card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="2.5" width="12" height="19" rx="2"/><path d="M7 6.5h6M7 10h6M7 13.5h3"/><circle cx="18.5" cy="18" r="2.6"/></svg>
+              </div>
+              <h3>Игровые ПК</h3>
+              <p>Готовые и собранные под задачу системники на RTX 30/40 серии. Тесты в играх перед выдачей.</p>
+              <span class="card__link">Узнать больше <i>→</i></span>
+              <span class="card__idx">01</span>
+            </article>
+
+            <article class="card" style="--c1:#4f7dff;--c2:#7b5cff">
+              <div class="card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="16" height="11" rx="1.6"/><path d="M2 18.5h20l-1.4-2.2H3.4z"/></svg>
+              </div>
+              <h3>Игровые ноутбуки</h3>
+              <p>ASUS ROG, MSI, Lenovo Legion. Проверка батареи, экрана и системы охлаждения.</p>
+              <span class="card__link">Узнать больше <i>→</i></span>
+              <span class="card__idx">02</span>
+            </article>
+
+            <article class="card" style="--c1:#a34bff;--c2:#ff4fd8">
+              <div class="card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="12" rx="1.6"/><path d="M8 20h8M12 17v3"/></svg>
+              </div>
+              <h3>Офисные ноутбуки и ПК</h3>
+              <p>Надёжные машины для работы и учёбы. Комплекты с монитором, клавиатурой и мышью.</p>
+              <span class="card__link">Узнать больше <i>→</i></span>
+              <span class="card__idx">03</span>
+            </article>
+
+            <article class="card" style="--c1:#ff4fd8;--c2:#ff8a4b">
+              <div class="card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3.2l7.5 4.3v8.6L12 20.4 4.5 16.1V7.5z"/><path d="M12 12l7.5-4.5M12 12v8.4M12 12L4.5 7.5"/></svg>
+              </div>
+              <h3>Сборка на заказ</h3>
+              <p>Считаем конфигурацию под бюджет и задачи, закупаем комплектующие, собираем и настраиваем.</p>
+              <span class="card__link">Оставить запрос <i>→</i></span>
+              <span class="card__idx">04</span>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ О НАС ═══════════ -->
+<section class="about" id="about">
+  <div class="about__grid">
+    <div class="about__panel">
+      <span class="micro micro--pill">О НАС</span>
+      <h2 class="about__title">ПРОДАЖА Б/У И НОВЫХ ПК И НОУТБУКОВ.<br>ИНДИВИДУАЛЬНЫЕ СБОРКИ<br>В САНКТ-ПЕТЕРБУРГЕ</h2>
+      <div class="about__rule"><span>01</span><i></i><span>03</span></div>
+      <div class="about__note">
+        <h3>Б/У И НОВЫЕ ПК И НОУТБУКИ<br>ИНДИВИДУАЛЬНЫЕ СБОРКИ В САНКТ-ПЕТЕРБУРГЕ</h3>
+        <p>Работаем с 2019 года. Подбираем, диагностируем и собираем игровую и офисную технику.
+           Каждая машина проходит стресс-тест и проверку комплектующих перед продажей.</p>
+      </div>
+    </div>
+    <div class="about__photo">
+      <div class="about__photo-img"></div>
+      <div class="about__photo-blob"></div>
+      <div class="about__photo-grid"></div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>7+</b><span>лет на рынке</span></div>
+    <div class="stat"><b>1500+</b><span>собранных ПК</span></div>
+    <div class="stat"><b>5.0</b><span>рейтинг на Авито</span></div>
+    <div class="stat"><b>14</b><span>дней на возврат</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ ПОЧЕМУ ВЫБИРАЮТ НАС ═══════════ -->
+<section class="why" id="why">
+  <div class="sect__head">
+    <span class="dots"><i></i><i></i></span>
+    <h2 class="sect__title">ПОЧЕМУ ВЫБИРАЮТ НАС</h2>
+  </div>
+  <div class="why__grid">
+    <article class="why__item"><span class="why__n">01</span><h3>Гарантия до 12 месяцев</h3><p>Официальная гарантия на технику и на нашу сборку. Сервис — в собственной мастерской.</p></article>
+    <article class="why__item"><span class="why__n">02</span><h3>Тест-драйв перед покупкой</h3><p>Запускаем ваши игры прямо в магазине — смотрите реальный FPS до оплаты.</p></article>
+    <article class="why__item"><span class="why__n">03</span><h3>Сборка «под задачу»</h3><p>Считаем конфигурацию под бюджет и требуемые игры, без переплаты за лишнее железо.</p></article>
+    <article class="why__item"><span class="why__n">04</span><h3>Trade-in и выкуп</h3><p>Меняем старую технику на новую с доплатой или выкупаем за наличные в день обращения.</p></article>
+    <article class="why__item"><span class="why__n">05</span><h3>Полная диагностика</h3><p>Стресс-тесты CPU и GPU, проверка памяти, батареи, матрицы и системы охлаждения.</p></article>
+    <article class="why__item"><span class="why__n">06</span><h3>Доставка по России</h3><p>Самовывоз в Санкт-Петербурге или отправка транспортной компанией в надёжной упаковке.</p></article>
+  </div>
+</section>
+
+<!-- ═══════════ B2B ═══════════ -->
+<section class="b2b" id="b2b">
+  <div class="b2b__card">
+    <div class="b2b__left">
+      <span class="micro micro--pill">ДЛЯ БИЗНЕСА И КЛУБОВ</span>
+      <h2 class="b2b__title">B2B — СОТРУДНИЧЕСТВО С КОМПЬЮТЕРНЫМИ КЛУБАМИ</h2>
+      <p class="b2b__lead">Оснащаем и обновляем компьютерные клубы, коворкинги и киберспортивные арены Санкт-Петербурга и Ленобласти — от одной машины до полного зала.</p>
+      <ul class="b2b__list">
+        <li>Оптовые цены на партии от 5 машин</li>
+        <li>Единая конфигурация всех рабочих мест</li>
+        <li>Сервисное обслуживание и подменный фонд</li>
+        <li>Trade-in старого парка клуба</li>
+        <li>Отсрочка платежа и работа по договору</li>
+        <li>Полный пакет документов: ООО / ИП, НДС</li>
+      </ul>
+      <a class="btn" href="#lead">Обсудить проект</a>
+    </div>
+    <div class="b2b__right">
+      <div class="b2b__photo"></div>
+      <div class="b2b__badge"><b>от 5</b><span>машин в партии</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ЗАЯВКА ═══════════ -->
+<section class="lead" id="lead">
+  <div class="sect__head">
+    <span class="dots"><i></i><i></i></span>
+    <h2 class="sect__title">ОСТАВИТЬ ЗАЯВКУ</h2>
+    <p class="sect__sub">Заполните форму — перезвоним и подберём конфигурацию в течение 15 минут</p>
+  </div>
+  <form class="lead__form" id="leadForm" novalidate>
+    <label class="field"><span>Ваше имя</span><input type="text" name="name" placeholder="Александр" required></label>
+    <label class="field"><span>Телефон</span><input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required></label>
+    <label class="field"><span>Что интересует</span>
+      <select name="type">
+        <option>Игровой ПК</option><option>Игровой ноутбук</option>
+        <option>Офисный ноутбук / ПК</option><option>Сборка на заказ</option>
+        <option>B2B — оснащение клуба</option><option>Trade-in / выкуп</option>
+      </select>
+    </label>
+    <label class="field field--wide"><span>Бюджет и пожелания</span><input type="text" name="budget" placeholder="до 120 000 ₽, нужен 144 Гц и RTX"></label>
+    <button class="btn btn--wide" type="submit">Отправить заявку</button>
+    <p class="lead__note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.</p>
+    <p class="lead__ok" id="leadOk" hidden>Заявка отправлена — перезвоним в ближайшее время.</p>
+  </form>
+</section>
+
+<!-- ═══════════ КАРТА ═══════════ -->
+<section class="map" id="map">
+  <div class="sect__head">
+    <span class="dots"><i></i><i></i></span>
+    <h2 class="sect__title">МАГАЗИН НА КАРТЕ</h2>
+  </div>
+  <div class="map__grid">
+    <div class="map__info">
+      <div class="map__row"><span class="micro">Адрес</span><b>Санкт-Петербург,<br>ул. Швецова, 41</b></div>
+      <div class="map__row"><span class="micro">Часы работы</span><b>Пн–Вс: 11:00–21:00<br>без выходных</b></div>
+      <div class="map__row"><span class="micro">Телефон</span><a href="tel:+79000000000">+7 900 000-00-00</a></div>
+      <div class="map__row"><span class="micro">Почта</span><a href="mailto:info@igrai.ru">info@igrai.ru</a></div>
+      <a class="btn btn--ghost" href="https://yandex.ru/maps/?text=Санкт-Петербург, улица Швецова, 41" target="_blank" rel="noopener">Открыть в Яндекс.Картах</a>
+    </div>
+    <div class="map__canvas">
+      <div class="map__mesh"></div>
+      <div class="map__pin"><i></i><span>IGRAI®</span></div>
+      <span class="micro map__hint">Кировский район · 7 минут от м. Нарвская</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="ftr">
+  <div class="ftr__top">
+    <div>
+      <span class="mark mark--lg">N</span>
+      <p class="ftr__desc">IGRAI® — магазин игровой и офисной техники в Санкт-Петербурге. Подбор, диагностика, индивидуальные сборки и оснащение компьютерных клубов.</p>
+    </div>
+    <div class="ftr__cols">
+      <div><span class="micro">Разделы</span><a href="#catalog">Каталог</a><a href="#about">О нас</a><a href="#why">Почему мы</a><a href="#b2b">B2B</a></div>
+      <div><span class="micro">Контакты</span><a href="tel:+79000000000">+7 900 000-00-00</a><a href="mailto:info@igrai.ru">info@igrai.ru</a><a href="#map">ул. Швецова, 41</a></div>
+    </div>
+  </div>
+  <div class="ftr__word">IGRAI<sup>®</sup></div>
+  <div class="ftr__bottom">
+    <span class="micro">© 2026 IGRAI® — игровые ноутбуки и ПК, Санкт-Петербург</span>
+    <span class="micro">Политика конфиденциальности</span>
+  </div>
+</footer>
+
+<div class="loader" id="loader"><div class="loader__bar"><i id="loaderBar"></i></div><span class="micro">Загрузка 3D-модели</span></div>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>

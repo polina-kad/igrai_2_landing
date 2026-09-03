@@ -1,0 +1,19 @@
+# системный мусор Windows / macOS
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# редакторы
+.vscode/*
+!.vscode/settings.json
+.idea/
+
+# если когда-нибудь появится сборка на node
+node_modules/
+package-lock.json
+
+# временные файлы
+*.log
+*.tmp
+*.bak
+~$*
