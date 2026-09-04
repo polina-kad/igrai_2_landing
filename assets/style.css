@@ -221,6 +221,7 @@ sup{font-size:.42em;vertical-align:super;letter-spacing:0}
 }
 .card{
   position:relative;display:flex;flex-direction:column;gap:12px;
+  color:inherit;text-decoration:none;cursor:pointer;
   padding:26px 24px 24px;border-radius:16px;
   background:linear-gradient(165deg, rgba(255,255,255,.075), rgba(255,255,255,.022));
   border:1px solid rgba(255,255,255,.09);
@@ -370,14 +371,6 @@ sup{font-size:.42em;vertical-align:super;letter-spacing:0}
   content:'';position:absolute;inset:0;
   background:linear-gradient(90deg, rgba(10,6,22,.96) 0%, rgba(10,6,22,.28) 42%, rgba(255,79,216,.12) 100%);
 }
-.b2b__badge{
-  position:absolute;left:-34px;bottom:34px;z-index:2;
-  padding:18px 24px;border-radius:14px;background:rgba(8,5,18,.82);
-  border:1px solid var(--line);backdrop-filter:blur(12px);
-  display:flex;flex-direction:column;gap:2px;
-}
-.b2b__badge b{font-family:'Unbounded',sans-serif;font-size:26px;font-weight:800;line-height:1}
-.b2b__badge span{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2)}
 
 /* ============================================================
    ЗАЯВКА
@@ -503,8 +496,7 @@ sup{font-size:.42em;vertical-align:super;letter-spacing:0}
   .why__grid{grid-template-columns:repeat(2,1fr)}
   .b2b__card{grid-template-columns:1fr}
   .b2b__right{min-height:280px;order:-1}
-  .b2b__badge{left:auto;right:20px;bottom:-28px}
-  .map__grid{grid-template-columns:1fr}
+    .map__grid{grid-template-columns:1fr}
   .ftr__top{grid-template-columns:1fr}
 }
 @media (max-width:760px){

@@ -1,0 +1,185 @@
+===== 1. КТО СЛУШАЕТ ПОРТ 80 =====
+LISTEN 0      511          0.0.0.0:80        0.0.0.0:*    users:(("nginx",pid=463123,fd=5),("nginx",pid=463121,fd=5))
+LISTEN 0      511             [::]:80           [::]:*    users:(("nginx",pid=463123,fd=6),("nginx",pid=463121,fd=6))
+
+===== 2. КОНТЕЙНЕРЫ =====
+docker не установлен
+
+===== 3. СЛУЖБЫ =====
+nginx active
+apache2 inactive
+caddy inactive
+
+===== 4. ВКЛЮЧЁННЫЕ КОНФИГИ NGINX =====
+/etc/nginx/conf.d/:
+total 12
+drwxr-xr-x 2 root root 4096 Aug  5 17:00 .
+drwxr-xr-x 8 root root 4096 Aug 20 06:36 ..
+-rw-r--r-- 1 root root  623 Aug  5 17:00 igrai-limit.conf
+
+/etc/nginx/sites-enabled/:
+total 8
+drwxr-xr-x 2 root root 4096 Aug  5 17:00 .
+drwxr-xr-x 8 root root 4096 Aug 20 06:36 ..
+lrwxrwxrwx 1 root root   32 Aug  5 17:00 igrai -> /etc/nginx/sites-available/igrai
+
+===== 5. ТЕКСТ ВКЛЮЧЁННЫХ КОНФИГОВ =====
+--- /etc/nginx/sites-enabled/igrai ---
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+    root /var/www/igrai;
+    index index.html;
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_types text/plain text/css application/javascript application/json image/svg+xml;
+    location = /api/lead {
+        proxy_pass http://127.0.0.1:8777;
+        proxy_http_version 1.1;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 20s;
+        limit_req zone=leads burst=5 nodelay;
+    }
+    location ~* \.(?:jpg|jpeg|png|webp|svg|ico|woff2?)$ {
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+        access_log off;
+    }
+    location = /index.html {
+        add_header Cache-Control "no-cache";
+    }
+    location ^~ /1comp/ {
+        root /var/www;
+        index index.html;
+        try_files $uri $uri/ /1comp/index.html;
+        location ~* ^/1comp/.*\.(?:jpg|jpeg|png|webp|svg|ico|woff2?)$ {
+            root /var/www;
+            expires 30d;
+            add_header Cache-Control "public, immutable";
+            access_log off;
+        }
+        location = /1comp/index.html {
+            root /var/www;
+            add_header Cache-Control "no-cache";
+        }
+    }
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+    location ~ /\.(env|git) {
+        deny all;
+        return 404;
+    }
+    location ~ ^/(server\.mjs|package\.json|api/|deploy/) {
+        deny all;
+        return 404;
+    }
+}
+--- /etc/nginx/conf.d/igrai-limit.conf ---
+limit_req_zone $binary_remote_addr zone=leads:10m rate=10r/m;
+
+===== 6. ROOT / ALIAS / LISTEN ИЗ ДЕЙСТВУЮЩЕГО КОНФИГА =====
+27:	# server_names_hash_bucket_size 64;
+28:	# server_name_in_redirect off;
+77:#		listen     localhost:110;
+83:#		listen     localhost:143;
+221:    listen 80 default_server;
+222:    listen [::]:80 default_server;
+223:    server_name _;
+225:    root /var/www/igrai;
+229:    location /.well-known/acme-challenge/ {
+230:        root /var/www/certbot;
+243:    location = /api/lead {
+257:    location ~* \.(?:jpg|jpeg|png|webp|svg|ico|woff2?)$ {
+263:    location = /index.html {
+269:    # ушли бы в блок с кэшем, который резолвит путь от root этого сервера.
+270:    location ^~ /1comp/ {
+271:        root /var/www;
+273:        try_files $uri $uri/ /1comp/index.html;
+275:        location ~* ^/1comp/.*\.(?:jpg|jpeg|png|webp|svg|ico|woff2?)$ {
+276:            root /var/www;
+281:        location = /1comp/index.html {
+282:            root /var/www;
+287:    location / {
+288:        try_files $uri $uri/ /index.html;
+292:    location ~ /\.(env|git) {
+296:    location ~ ^/(server\.mjs|package\.json|api/|deploy/) {
+
+===== 7. ЧТО ОТДАЁТСЯ =====
+-- / --
+HTTP/1.1 200 OK
+Server: nginx/1.28.3 (Ubuntu)
+Date: Thu, 03 Sep 2026 22:31:41 GMT
+Content-Type: text/html
+Content-Length: 41962
+Last-Modified: Wed, 12 Aug 2026 23:35:51 GMT
+-- /igrai2/ --
+HTTP/1.1 200 OK
+Server: nginx/1.28.3 (Ubuntu)
+Date: Thu, 03 Sep 2026 22:31:41 GMT
+Content-Type: text/html
+Content-Length: 41962
+Last-Modified: Wed, 12 Aug 2026 23:35:51 GMT
+-- заголовок страницы /igrai2/ --
+<title>ИГРАЙ — игровые ПК и ноутбуки в Санкт-Петербурге | Продажа, трейд-ин, сборка
+
+===== 8. ЧТО ЛЕЖИТ НА ДИСКЕ =====
+-- /var/www --
+total 32
+drwxr-xr-x  8 root     root     4096 Sep  3 22:28 .
+drwxr-xr-x 14 root     root     4096 Aug  5 16:59 ..
+drwxr-xr-x  6 www-data www-data 4096 Aug 25 14:26 1comp
+drwxr-xr-x  6 www-data www-data 4096 Aug 25 14:14 1comp.bak
+drwxr-xr-x  2 root     root     4096 Sep  3 22:28 certbot
+drwxr-xr-x  2 root     root     4096 Sep  3 22:28 html
+drwxr-xr-x  5 502      staff    4096 Sep  3 22:28 igrai
+drwxr-xr-x  3 www-data www-data 4096 Sep  3 22:28 igrai2
+-- /var/www/html --
+total 12
+drwxr-xr-x 2 root root 4096 Sep  3 22:28 .
+drwxr-xr-x 8 root root 4096 Sep  3 22:28 ..
+-rw-r--r-- 1 root root  615 Aug  5 16:59 index.nginx-debian.html
+-- /var/www/igrai --
+total 88
+drwxr-xr-x 5 502  staff  4096 Sep  3 22:28 .
+drwxr-xr-x 8 root root   4096 Sep  3 22:28 ..
+-rw-r--r-- 1 502  staff  9722 Aug  5 15:08 README.md
+drwxr-xr-x 2 502  staff  4096 Aug  5 17:07 api
+drwxr-xr-x 2 502  staff  4096 Aug 12 17:33 assets
+drwxr-xr-x 2 502  staff  4096 Aug 13 08:35 deploy
+-rw-r--r-- 1 502  staff 41962 Aug 12 23:35 index.html
+-rw-r--r-- 1 502  staff   325 Aug  5 15:04 package.json
+-rw-r--r-- 1 502  staff  4961 Aug  5 16:44 server.mjs
+-- /var/www/igrai2 --
+total 12780
+drwxr-xr-x 3 www-data www-data     4096 Sep  3 22:28 .
+drwxr-xr-x 8 root     root         4096 Sep  3 22:28 ..
+-rw-r--r-- 1 www-data www-data     5743 Sep  2 12:19 README.md
+drwxr-xr-x 4 www-data www-data     4096 Sep  1 10:42 assets
+-rw-r--r-- 1 www-data www-data 13049600 Aug 28 16:35 asus_rog_animated.glb
+-rw-r--r-- 1 www-data www-data    16358 Sep  1 10:42 index.html
+-- /var/www/html/igrai2 --
+ls: cannot access '/var/www/html/igrai2': No such file or directory
+-- /usr/share/nginx/html --
+total 12
+drwxr-xr-x 2 root root 4096 Sep  3 22:28 .
+drwxr-xr-x 3 root root 4096 Aug 20 06:36 ..
+-rw-r--r-- 1 root root  615 Mar 27 10:40 index.html
+
+===== 9. ПРОБА ЗАПИСИ =====
+/var/www — записываемо
+/var/www/html — записываемо
+/var/www/igrai — записываемо
+
+===== КОНЕЦ =====

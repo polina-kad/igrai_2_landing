@@ -490,7 +490,8 @@ if (phone) phone.addEventListener('input', () => {
 const form = $('#leadForm');
 if (form) form.addEventListener('submit', e => {
   e.preventDefault();
-  if (!form.name.value.trim() || form.phone.value.replace(/\D/g, '').length < 11) {
+  if (form.phone.value.replace(/\D/g, '').length < 11) {
+    form.phone.focus();
     form.reportValidity?.();
     return;
   }

@@ -17,3 +17,6 @@ package-lock.json
 *.tmp
 *.bak
 ~$*
+
+# адрес сервера для выкладки — в репозиторий не уезжает
+deploy/target.env
